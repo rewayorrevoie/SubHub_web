@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SubHub – Профиль</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+<h2>🙍‍♂️Профиль</h2>
+<a href="store.html"><h2>🛒Магазин</h2></a>
+</div>
+
+<div class="container">
+<h1 id="username"></h1>
+<h3>Мои подписки</h3>
+<div id="subsList" class="cards"></div>
+</div>
+
+<script src="script.js"></script>
+<script>
+let user = getCurrentUser();
+if(!user){ window.location.href="index.html"; }
+
+document.getElementById("username").innerText = user.name;
+
+function updateProfileList(){
+    let user = getCurrentUser();
+    let list = document.getElementById("subsList");
+    list.innerHTML = "";
+
+    if(user.subs.length === 0){ 
+        list.innerHTML = "<p>Нет подписок</p>";
+        return;
+    }
+
+    user.subs.forEach(s => {
+        if(!s.name) return;
+        let card = document.createElement("div"); 
+        card.className = "card";
+        let today = new Date(), exp = new Date(s.expires);
+        let status = exp >= today ? "Активна" : "Истекла";
+        let color = exp >= today ? "#1db954" : "#e74c3c";
+
+        card.innerHTML = `<h3>${s.name}</h3>
+        <p>Статус: <span style="color:${color}; font-weight:bold;">${status}</span></p>
+        <p>До: ${s.expires}</p>
+        <p>Аккаунт: <a href="${s.link}" target="_blank">${s.link}</a></p>
+        <button onclick="cancelProfileSub('${s.name}')">Отменить</button>`;
+
+        list.appendChild(card);
+    });
+}
+
+function cancelProfileSub(service){
+    let user = getCurrentUser();
+    user.subs = user.subs.filter(s => s.name !== service);
+    saveUser(user);
+    updateProfileList();
+}
+
+updateProfileList();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SubHub – Вход</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h1>SubHub</h1>
+
+<div id="loginBox">
+<input type="text" id="loginName" placeholder="Имя">
+<input type="password" id="loginPass" placeholder="Пароль">
+<button onclick="login()">Войти</button>
+<div style="text-align:center; margin-top:10px; cursor:pointer; color:#aaa;" onclick="showRegister()">Нет аккаунта? Регистрация</div>
+</div>
+
+<div id="registerBox" style="display:none;">
+<input type="text" id="regName" placeholder="Имя">
+<input type="password" id="regPass" placeholder="Пароль">
+<button onclick="register()">Создать аккаунт</button>
+<div style="text-align:center; margin-top:10px; cursor:pointer; color:#aaa;" onclick="showLogin()">Уже есть аккаунт</div>
+</div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
